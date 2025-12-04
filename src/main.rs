@@ -10,7 +10,7 @@ mod day3;
 mod day4;
 
 
-fn print_results(name: &str, res: i64, time : Duration) {
+fn print_results(name: String, res: i64, time : Duration) {
     println!("{}:", name);
     println!("Result: {}", res);
     println!("Time: {}ms", time.as_millis());
@@ -24,7 +24,7 @@ fn run_and_print(puzzle: Box<dyn AoCPuzzle>) {
     let elapsed = start.elapsed();
 
     println!("------------------------------------------------------");
-    print_results(&puzzle.puzzle_name(), res, elapsed);
+    print_results(puzzle.puzzle_name(), res, elapsed);
 
     let start = Instant::now();
     let result : Option<i64> = puzzle.second_puzzle();
@@ -33,7 +33,7 @@ fn run_and_print(puzzle: Box<dyn AoCPuzzle>) {
     match result {
         Some(x) => {
             println!();
-            print_results(&puzzle.puzzle_name(), x, elapsed);
+            print_results(format!("{} Part 2",&puzzle.puzzle_name()), x, elapsed);
         },
         None => {}
     }

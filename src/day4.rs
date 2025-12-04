@@ -46,6 +46,8 @@ pub struct Day4 {
     pub filename: String
 }
 
+
+
 impl AoCPuzzle for Day4 {
     fn puzzle_name(&self) -> String {
         "Day 4".to_string()
@@ -68,6 +70,26 @@ impl AoCPuzzle for Day4 {
     }
 
     fn second_puzzle(&self) -> Option<i64> {
-        None
+        let mut cnt = 0;
+        let mut change : bool = true;
+        let mut matrix = load_matrix(&self.filename);
+
+        while change {
+            change = false;
+            for i in 1..matrix.len() - 1 {
+                for j in 1..matrix[i].len() - 1 {
+                    if matrix[i][j] == '@' {
+                        let num_neightbours = cnt_neighbours(i, j, &matrix);
+                        if num_neightbours < 4 {
+                            matrix[i][j] = '.';
+                            change = true;
+                            cnt += 1;
+                        }
+                    }
+                }
+            }
+        }
+        
+        Some(cnt)
     }
 }
