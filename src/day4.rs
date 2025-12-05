@@ -1,5 +1,5 @@
 use std::fs::read_to_string;
-use std::collections::VecDeque;
+use std::collections::{HashSet, VecDeque};
 use crate::puzzle::AoCPuzzle;
 
 fn load_matrix(input_file : &str) -> Vec<Vec<char>> {
@@ -19,6 +19,35 @@ fn load_matrix(input_file : &str) -> Vec<Vec<char>> {
     mat.push_front(vec!['.'; mat[0].len()]);
 
     mat.into()
+}
+
+fn load_hash_set(input_file : &str) -> HashSet<(i32, i32)> {
+    let mut set :HashSet<(i32, i32)> = HashSet::new();
+
+    for (i,line) in read_to_string(input_file).unwrap().lines().enumerate() {
+        for (j,char) in line.trim().chars().enumerate() {
+            if char == '@' {
+                set.insert((i as i32, j as i32));
+            }
+        }
+    }
+
+    set
+}
+
+fn cnt_neighbours_hash_set(i : i32 ,j : i32 , set : &HashSet<(i32, i32)>) -> i32 {
+    let mut cnt = 0;
+
+    if set.contains(&(i - 1, j - 1)) { cnt +=1; }
+    if set.contains(&(i - 1, j)) { cnt +=1; }
+    if set.contains(&(i - 1, j+1)) { cnt +=1; }
+    if set.contains(&(i, j+1)) { cnt +=1; }
+    if set.contains(&(i+1, j+1)) { cnt +=1; }
+    if set.contains(&(i+1, j)) { cnt +=1; }
+    if set.contains(&(i+1, j-1)) { cnt +=1; }
+    if set.contains(&(i, j-1)) { cnt +=1; }
+
+    cnt
 }
 
 
@@ -89,7 +118,34 @@ impl AoCPuzzle for Day4 {
                 }
             }
         }
-        
+
         Some(cnt)
+    }
+}
+
+pub struct Day4Improved {
+    pub filename: String
+}
+
+impl AoCPuzzle for Day4Improved {
+    fn puzzle_name(&self) -> String {
+        "Day 4 With HashSet (which, surprisingly, turns out to be slower, my guss is cash hits with Vec are better). Fewer LoC and more elegant".to_string()
+    }
+
+    fn first_puzzle(&self) -> i64 {
+        let hash_set = load_hash_set(&self.filename);
+        let mut cnt = 0;
+
+        for &(i,j) in &hash_set {
+            if cnt_neighbours_hash_set(i,j, &hash_set) < 4 {
+                cnt += 1;
+            }
+        }
+
+        cnt
+    }
+
+    fn second_puzzle(&self) -> Option<i64> {
+        None
     }
 }
