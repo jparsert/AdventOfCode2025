@@ -42,23 +42,33 @@ impl AoCPuzzle for Day5 {
     }
 
     fn second_puzzle(&self) -> Option<i64> {
-        /*let mut cnt: i64 = 0;
-        remove overlapping
+
+        /*
+        let mut vec: Vec<(i64, i64)> = Vec::new();
+
         for line in std::fs::read_to_string(&self.filename).unwrap().lines() {
             if line.is_empty() {
                 break;
             }
-
             let tmp = line.split("-").collect::<Vec<&str>>();
             let start = tmp[0].parse::<i64>().unwrap();
             let end = tmp[1].parse::<i64>().unwrap();
-            
-            cnt += end - start + 1
-        }
 
-        Some(cnt)
+            vec.push((start, end));
+        }
+        
+        vec.sort_by(|a, b| a.0.cmp(&b.0));
+        
+        for (a,b) in vec {
+            
+        }
+        
+
+        let mut cnt: i64 = 0;
         
          */
+
+
         None
     }
 }
