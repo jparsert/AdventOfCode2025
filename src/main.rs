@@ -11,6 +11,9 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
+mod day9;
+mod day10;
 
 fn print_results(name: String, res: i64, time : Duration) {
     println!("{}:", name);
@@ -63,6 +66,10 @@ fn main() {
     puzzles.push(Box::new(day5::Day5{filename : "resources/day5.txt".to_string()}));
     puzzles.push(Box::new(day6::Day6{filename : "resources/day6.txt".to_string()}));
     puzzles.push(Box::new(day7::Day7{filename : "resources/day7.txt".to_string()}));
+    puzzles.push(Box::new(day8::Day8{filename : "resources/day8.txt".to_string()}));
+    puzzles.push(Box::new(day9::Day9{filename : "resources/day9.txt".to_string()}));
+    puzzles.push(Box::new(day10::Day10{filename : "resources/day10.txt".to_string()}));
+
 
     for puzzle in puzzles {
         run_and_print(puzzle);

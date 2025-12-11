@@ -2,7 +2,7 @@ use crate::puzzle::AoCPuzzle;
 use std::fs::read_to_string;
 
 
-pub(crate) struct Day7 {
+pub struct Day7 {
     pub filename: String,
 }
 
