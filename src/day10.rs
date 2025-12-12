@@ -29,7 +29,6 @@ fn get_minimal_presses(target : &Vec<bool>, start : Vec<bool>, buttons : &Vec<Ve
         }
         seen.insert(last.clone());
 
-
         for button in buttons {
             let mut path = current.clone();
             let new = press_buttons(last, button);
@@ -39,7 +38,6 @@ fn get_minimal_presses(target : &Vec<bool>, start : Vec<bool>, buttons : &Vec<Ve
             }
         }
     }
-
     None
 }
 
