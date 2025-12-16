@@ -1,8 +1,7 @@
 use std::collections::{HashMap};
 use crate::puzzle::AoCPuzzle;
 use std::fs::read_to_string;
-use petgraph::{Graph};
-use petgraph::graph::{NodeIndex};
+use union_find::{UnionFind, QuickFindUf, UnionByRank};
 
 pub struct Day8 {
     pub filename: String,
@@ -22,16 +21,19 @@ fn dist(a : &Point, b : &Point) -> i64 {
 
 impl AoCPuzzle for Day8 {
     fn puzzle_name(&self) -> String {
-        "Day 8 NOT DONE".to_string()
+        "Day 8".to_string()
     }
 
     fn first_puzzle(&self) -> i64 {
 
         let mut points : Vec<Point> = Vec::new();
+        let mut node_to_id : HashMap<Point, usize> = HashMap::new();
 
-        for line in read_to_string(&self.filename).unwrap().lines() {
+        for (i, line) in read_to_string(&self.filename).unwrap().lines().enumerate() {
             let vals : Vec<i64> = line.split(",").map(|x| x.parse::<i64>().unwrap()).collect();
-            points.push(Point{x:vals[0],y:vals[1],z:vals[2]})
+            let pt = Point{x:vals[0],y:vals[1],z:vals[2]};
+            points.push(pt);
+            node_to_id.insert(pt, i);
         }
 
         let mut distance_points : Vec<(i64,Point,Point)> = Vec::new();
@@ -42,36 +44,22 @@ impl AoCPuzzle for Day8 {
         }
 
         distance_points.sort_by(|x,y| x.0.cmp(&y.0));
+        let mut uf = QuickFindUf::<UnionByRank>::new(node_to_id.len());
 
-
-        let mut graph = Graph::<Point, i64>::new();
-        let mut node_to_id : HashMap<Point,NodeIndex> = HashMap::new();
-        let mut id_to_node : HashMap<NodeIndex,Point>= HashMap::new();
-
-        for i in 0..10{
-            let (dist, n1, n2) = distance_points[i];
-            let mut add_if_necessary = |x| {
-                match node_to_id.get(&x) {
-                    Some(id) => *id,                 // id is &NodeId; return owned copy
-                    None => {
-                        let id = graph.add_node(x);  // id: NodeId
-                        node_to_id.insert(x, id);    // store owned id
-                        id_to_node.insert(id, x);    // also store owned id
-                        id                            // return id (ownership to caller)
-                    }
-                }
-            };
-
-            let f_node = add_if_necessary(n1);
-            let s_node = add_if_necessary(n2);
-
-            graph.add_edge(f_node, s_node, dist);
+        for i in 0..1000{
+            let (_, n1, n2) = distance_points[i];
+            uf.union(node_to_id[&n1], node_to_id[&n2]);
         }
 
+        let mut cnts = vec![0; node_to_id.len()];
 
+        for i in 0..node_to_id.len() {
+            cnts[uf.find(i)] += 1;
+        }
 
-        distance_points[0].0.abs() + distance_points[1].0.abs() + distance_points[2].0.abs()
+        cnts.sort_by(|x,y| y.cmp(&x));
 
+        cnts[0] * cnts[1] * cnts[2]
     }
 
     fn second_puzzle(&self) -> Option<i64> {

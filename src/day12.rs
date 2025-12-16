@@ -1,6 +1,4 @@
 use std::fs::read_to_string;
-use itertools::Itertools;
-use crate::day10::Day10;
 use crate::puzzle::AoCPuzzle;
 
 pub struct Day12 {
@@ -8,7 +6,7 @@ pub struct Day12 {
 
 }
 
-
+/*
 fn read_shape(string: String) -> (Vec<Vec<bool>>, i32) {
     let mut shape : Vec<Vec<bool>> = Vec::new();
     let mut size = 0;
@@ -20,6 +18,7 @@ fn read_shape(string: String) -> (Vec<Vec<bool>>, i32) {
     }
     (shape,size as i32)
 }
+*/
 
 fn parse_space(string:String) -> (i32, i32) {
     let binding = string.trim()[0..string.len()-1].to_string();

@@ -61,7 +61,7 @@ fn main() {
     let mut puzzles : Vec<Box<dyn AoCPuzzle>> = Vec::new();
 
 
-    /*
+
     puzzles.push(Box::new(day1::Day1{filename : "resources/day1.txt".to_string()}));
     puzzles.push(Box::new(day2::Day2{filename : "resources/day2.txt".to_string()}));
     puzzles.push(Box::new(day3::Day3{filename : "resources/day3.txt".to_string()}));
@@ -72,9 +72,8 @@ fn main() {
     puzzles.push(Box::new(day7::Day7{filename : "resources/day7.txt".to_string()}));
     puzzles.push(Box::new(day8::Day8{filename : "resources/day8.txt".to_string()}));
     puzzles.push(Box::new(day9::Day9{filename : "resources/day9.txt".to_string()}));
-    */
-    //puzzles.push(Box::new(day10::Day10{filename : "resources/day10.txt".to_string()}));
-    //puzzles.push(Box::new(day11::Day11{filename : "resources/day11.txt".to_string()}));
+    puzzles.push(Box::new(day10::Day10{filename : "resources/day10.txt".to_string()}));
+    puzzles.push(Box::new(day11::Day11{filename : "resources/day11.txt".to_string()}));
     puzzles.push(Box::new(day12::Day12{filename : "resources/day12.txt".to_string()}));
 
 

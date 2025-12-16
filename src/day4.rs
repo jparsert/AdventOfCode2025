@@ -129,7 +129,7 @@ pub struct Day4Improved {
 
 impl AoCPuzzle for Day4Improved {
     fn puzzle_name(&self) -> String {
-        "Day 4 With HashSet (which, surprisingly, turns out to be slower, my guss is cash hits with Vec are better). Fewer LoC and more elegant".to_string()
+        "Day 4 With HashSet (which, surprisingly, turns out to be slower, my guss is cache hits with Vec are better). Fewer LoC and more elegant".to_string()
     }
 
     fn first_puzzle(&self) -> i64 {
